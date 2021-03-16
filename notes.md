@@ -7,7 +7,7 @@ Założenia:
 2. Napisz klasę reprezentującą pieniądze
 Założenia:
 - Pieniądze mogą występować w różnych walutach
-- Pieniądze w jenej walucie mogą być wymieniane / konwertowane do innej waluty po wskazanym kursie
+- Pieniądze mogą być wymieniane / konwertowane do innej waluty po wskazanym kursie
 - Pieniądze można ze sobą porównywać, dodawać, odejmować
 
 3. Napisz silnik gry kółko i krzyżyk.
