@@ -29,6 +29,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.javamoney</groupId>
+            <artifactId>moneta</artifactId>
+            <version>1.4.2</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
