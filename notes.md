@@ -1,0 +1,21 @@
+1. Napisz program interpretujący proste wyrażenia w tekście
+Założenia:
+- Wyrażenia mają postać ${nazwa_zmiennej}
+- Jeśli wartość zmiennej nie została określona, ewaluacja powinna zostać przerwana
+- Podstawiane wartości mogą składać się wyłącznie ze znaków alafanumerycznych
+
+2. Napisz klasę reprezentującą pieniądze
+Założenia:
+- Pieniądze mogą występować w różnych walutach
+- Pieniądze w jenej walucie mogą być wymieniane / konwertowane do innej waluty po wskazanym kursie
+- Pieniądze można ze sobą porównywać, dodawać, odejmować
+
+3. Napisz silnik gry kółko i krzyżyk.
+Założenia:
+- Plansza ma rozmiar 3 x 3 pola
+- Gracze zajmują naprzemian wolne pola, stawiając na nich swój znak (kółko lub krzyżyk)
+- Gra kończy się kiedy wszystkie pola zostaną zajęte lub jeden z graczy zajmie sekwencję wygrywającą (kolumna, wiersz lub przekątna)
+
+4. Stwórz prosty slinik do wyszukiwania słów w dokumentach
+Założenia:
+- Silnik powinien prezentować wyniki jako uporządkowana lista ilości wystąpień szukanego słowa w dokumentach
