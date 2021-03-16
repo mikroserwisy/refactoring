@@ -13,9 +13,9 @@ Założenia:
 3. Napisz silnik gry kółko i krzyżyk.
 Założenia:
 - Plansza ma rozmiar 3 x 3 pola
-- Gracze zajmują naprzemian wolne pola, stawiając na nich swój znak (kółko lub krzyżyk)
+- Gracze zajmują na przemian wolne pola, stawiając na nich swój znak (kółko lub krzyżyk)
 - Gra kończy się kiedy wszystkie pola zostaną zajęte lub jeden z graczy zajmie sekwencję wygrywającą (kolumna, wiersz lub przekątna)
 
-4. Stwórz prosty slinik do wyszukiwania słów w dokumentach
+4. Stwórz prosty silnik do wyszukiwania słów w dokumentach
 Założenia:
 - Silnik powinien prezentować wyniki jako uporządkowana lista ilości wystąpień szukanego słowa w dokumentach
