@@ -1,7 +1,7 @@
 package pl.training.shop;
 
 import lombok.extern.java.Log;
-import pl.training.shop.payments.FakePaymentService;
+import pl.training.shop.payments.PaymentService;
 import pl.training.shop.payments.LocalMoney;
 import pl.training.shop.payments.PaymentRequest;
 
@@ -9,7 +9,7 @@ import pl.training.shop.payments.PaymentRequest;
 public class Application {
 
     public static void main(String[] args) {
-        var paymentService = new FakePaymentService();
+        var paymentService = new PaymentService();
         var paymentRequest = PaymentRequest.builder()
                 .money(LocalMoney.of(1_000))
                 .build();
