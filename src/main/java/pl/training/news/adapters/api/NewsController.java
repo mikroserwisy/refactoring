@@ -1,4 +1,4 @@
-package pl.training.news.adapters.rest;
+package pl.training.news.adapters.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
