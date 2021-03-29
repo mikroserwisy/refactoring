@@ -1,36 +1,32 @@
 package pl.training.shop.payments;
 
-import lombok.extern.java.Log;
+import lombok.RequiredArgsConstructor;
+import pl.training.shop.commons.TimeProvider;
 
-import java.time.Instant;
+@RequiredArgsConstructor
+public class PaymentService implements Payments {
 
-@Log
-public class PaymentService {
+    private final PaymentIdGenerator paymentIdGenerator;
+    private final PaymentRepository paymentRepository;
+    private final TimeProvider timeProvider;
 
-    private static final String LOG_FORMAT = "A new payment of %s has been initiated";
-
-    private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
-    private final InMemoryPaymentRepository paymentRepository = new InMemoryPaymentRepository();
-
+    @Override
     public Payment process(PaymentRequest paymentRequest) {
-        validate(paymentRequest);
-        var payment = Payment.builder()
-                .id(paymentIdGenerator.getNext())
-                .value(paymentRequest.getValue())
-                .properties(paymentRequest.getProperties())
-                .timestamp(Instant.now())
-                .status(PaymentStatus.STARTED)
-                .build();
-        log.info(String.format(LOG_FORMAT, payment.getValue()));
+        var payment = createPayment(paymentRequest);
         return paymentRepository.save(payment);
     }
 
-    private void validate(PaymentRequest paymentRequest) {
-        if (paymentRequest.getValue().isNegativeOrZero()) {
-            throw new InvalidPaymentRequest();
-        }
+    private Payment createPayment(PaymentRequest paymentRequest) {
+        return Payment.builder()
+                .id(paymentIdGenerator.getNext())
+                .value(paymentRequest.getValue())
+                .properties(paymentRequest.getProperties())
+                .timestamp(timeProvider.getTimestamp())
+                .status(PaymentStatus.STARTED)
+                .build();
     }
 
+    @Override
     public Payment findById(String id) {
         return paymentRepository.findById(id)
                 .orElseThrow(PaymentNotFoundException::new);

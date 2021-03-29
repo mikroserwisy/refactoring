@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-class InMemoryPaymentRepository {
+public class InMemoryPaymentRepository implements PaymentRepository {
 
     private final Set<Payment> payments = new HashSet<>();
 
