@@ -1,6 +1,6 @@
 package pl.training.movies;
 
-public class LoyaltyPointsCalculator {
+class LoyaltyPointsCalculator {
 
     private static final int DEFAULT_POINTS = 1;
     private static final int EXTRA_POINTS = 1;

@@ -1,6 +1,6 @@
 package pl.training.movies;
 
-public class PriceCalculator {
+class PriceCalculator {
 
     double getValueFor(MovieType movieType, long periodInDays) {
         return movieType.getInitialCost() + getValueForPeriod(movieType, periodInDays);

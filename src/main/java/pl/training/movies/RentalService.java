@@ -10,7 +10,7 @@ public class RentalService {
     private final PriceCalculator priceCalculator;
     private final LoyaltyPointsCalculator loyaltyPointsCalculator;
 
-    Statement createStatement(List<Rental> rentals) {
+    public Statement createStatement(List<Rental> rentals) {
         var totalValue = getTotalValue(rentals);
         int loyaltyPoints = getLoyaltyPoints(rentals);
         return new Statement(totalValue, loyaltyPoints);
