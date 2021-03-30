@@ -3,6 +3,9 @@ package pl.training.shop.payments;
 import lombok.RequiredArgsConstructor;
 import pl.training.shop.commons.TimeProvider;
 
+import javax.ejb.Stateless;
+
+@Stateless
 @RequiredArgsConstructor
 public class PaymentService implements Payments {
 

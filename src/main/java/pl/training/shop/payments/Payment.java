@@ -1,24 +1,47 @@
 package pl.training.shop.payments;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 import org.javamoney.moneta.FastMoney;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.Instant;
 import java.util.Map;
+import java.util.Objects;
 
+@Entity
+@Data
 @Builder
-@Value
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment {
 
-    String id;
-    FastMoney value;
-    Map<String, String> properties;
-    Instant timestamp;
-    PaymentStatus status;
+    @Id
+    private String id;
+    private FastMoney value;
+    //private Map<String, String> properties;
+    private Instant timestamp;
+    private PaymentStatus status;
 
     public boolean hasId(String id) {
         return this.id.equals(id);
+    }
+
+    @Override
+    public boolean equals(Object otherPayment) {
+        if (this == otherPayment) {
+            return true;
+        }
+        if (!(otherPayment instanceof  Payment)) {
+            return false;
+        }
+        var payment = (Payment) otherPayment;
+        return Objects.equals(id, payment.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }
