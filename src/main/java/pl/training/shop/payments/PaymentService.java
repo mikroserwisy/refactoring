@@ -1,17 +1,27 @@
 package pl.training.shop.payments;
 
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.training.shop.commons.TimeProvider;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class PaymentService implements Payments {
 
-    private final PaymentIdGenerator paymentIdGenerator;
-    private final PaymentRepository paymentRepository;
-    private final TimeProvider timeProvider;
+    @Inject
+    @NonNull
+    private PaymentIdGenerator paymentIdGenerator;
+    @Inject
+    @NonNull
+    private PaymentRepository paymentRepository;
+    @Inject
+    @NonNull
+    private TimeProvider timeProvider;
 
     @Override
     public Payment process(PaymentRequest paymentRequest) {

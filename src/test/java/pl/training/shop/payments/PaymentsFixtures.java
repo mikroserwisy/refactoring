@@ -9,7 +9,7 @@ import static java.util.Collections.emptyMap;
 
 class PaymentsFixtures {
 
-    private static final FastMoney MONEY = LocalMoney.of(1_000);
+    static final FastMoney MONEY = LocalMoney.of(1_000);
     static final String PAYMENT_ID = "7e098f3d-076c-4ab8-9c74-7d1935efb501";
     static final Instant TIMESTAMP = Instant.now();
     static final PaymentRequest validPaymentRequest = new PaymentRequest(MONEY, emptyMap());
