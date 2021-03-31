@@ -39,6 +39,37 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.8.2</version>
             </plugin>
+            <plugin>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-maven-plugin</artifactId>
+                <version>4.6.3</version>
+                <executions>
+                    <execution>
+                        <id>run-stories-as-embeddables</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>**/*Stories.java</include>
+                            </includes>
+                            <metaFilters>
+                                <metaFilter>+author *</metaFilter>
+                                <metaFilter>-skip</metaFilter>
+                            </metaFilters>
+                            <systemProperties>
+                                <property>
+                                    <name>java.awt.headless</name>
+                                    <value>true</value>
+                                </property>
+                            </systemProperties>
+                            <ignoreFailureInStories>true</ignoreFailureInStories>
+                            <ignoreFailureInView>false</ignoreFailureInView>
+                        </configuration>
+                        <goals>
+                            <goal>run-stories-as-embeddables</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -144,6 +175,11 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>4.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
