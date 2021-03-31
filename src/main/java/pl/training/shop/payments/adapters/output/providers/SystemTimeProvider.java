@@ -1,6 +1,6 @@
-package pl.training.shop.payments.adapters.output.time;
+package pl.training.shop.payments.adapters.output.providers;
 
-import pl.training.shop.payments.ports.output.time.TimeProvider;
+import pl.training.shop.payments.ports.output.providers.TimeProvider;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.Instant;

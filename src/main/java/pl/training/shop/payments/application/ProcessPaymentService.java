@@ -3,7 +3,8 @@ package pl.training.shop.payments.application;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import pl.training.shop.payments.ports.output.time.TimeProvider;
+import pl.training.shop.payments.ports.output.events.PaymentsEventEmitter;
+import pl.training.shop.payments.ports.output.providers.TimeProvider;
 import pl.training.shop.payments.domain.Payment;
 import pl.training.shop.payments.domain.PaymentStatus;
 import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
@@ -26,11 +27,15 @@ public class ProcessPaymentService implements ProcessPaymentUseCase {
     @Inject
     @NonNull
     private TimeProvider timeProvider;
+    @Inject
+    @NonNull
+    private PaymentsEventEmitter paymentsEventEmitter;
 
     @Override
     public Payment process(PaymentRequest paymentRequest) {
-        var payment = createPayment(paymentRequest);
-        return paymentRepository.save(payment);
+        var payment = paymentRepository.save(createPayment(paymentRequest));
+        paymentsEventEmitter.emit(payment);
+        return payment;
     }
 
     private Payment createPayment(PaymentRequest paymentRequest) {
