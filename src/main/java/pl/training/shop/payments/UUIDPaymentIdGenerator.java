@@ -1,9 +1,9 @@
 package pl.training.shop.payments;
 
-import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
-@Singleton
+@ApplicationScoped
 public class UUIDPaymentIdGenerator implements PaymentIdGenerator {
 
     public String getNext() {

@@ -1,7 +1,7 @@
 package pl.training.shop.payments;
 
 import org.junit.jupiter.api.Test;
-import pl.training.shop.commons.LocalMoney;
+import pl.training.shop.commons.money.LocalMoney;
 
 import static java.util.Collections.emptyMap;
 import static org.junit.jupiter.api.Assertions.assertThrows;

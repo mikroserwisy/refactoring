@@ -1,4 +1,4 @@
-package pl.training.shop.commons;
+package pl.training.shop.commons.money;
 
 import org.javamoney.moneta.FastMoney;
 

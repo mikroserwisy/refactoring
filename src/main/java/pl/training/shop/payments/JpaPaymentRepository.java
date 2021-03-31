@@ -1,11 +1,9 @@
 package pl.training.shop.payments;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
-@Stateless
 public class JpaPaymentRepository implements PaymentRepository {
 
     @PersistenceContext(unitName = "shop")

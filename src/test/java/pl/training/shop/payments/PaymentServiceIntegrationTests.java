@@ -6,14 +6,13 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pl.training.shop.commons.FastMoneyConverter;
-import pl.training.shop.commons.LocalMoney;
-import pl.training.shop.commons.SystemTimeProvider;
-import pl.training.shop.commons.TimeProvider;
+import pl.training.shop.commons.money.FastMoneyConverter;
+import pl.training.shop.commons.money.LocalMoney;
+import pl.training.shop.commons.time.SystemTimeProvider;
+import pl.training.shop.commons.time.TimeProvider;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -38,7 +37,8 @@ class PaymentServiceIntegrationTests {
                 .addClasses(PaymentIdGenerator.class, UUIDPaymentIdGenerator.class)
                 .addClasses(TimeProvider.class, SystemTimeProvider.class)
                 .addClasses(Payments.class, PaymentService.class, PaymentRequest.class, InvalidPaymentRequest.class)
-                .addAsResource("META-INF/persistence.xml");
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("META-INF/beans.xml");
         var dependencies = Maven.resolver().resolve("org.javamoney:moneta:pom:1.4.2")
                 .withTransitivity().as(JavaArchive.class);
         return Arrays.stream(dependencies)

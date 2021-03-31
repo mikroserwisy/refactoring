@@ -3,12 +3,12 @@ package pl.training.shop.payments;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import pl.training.shop.commons.TimeProvider;
+import pl.training.shop.commons.time.TimeProvider;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
-@Stateless
+@Transactional
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class PaymentService implements Payments {

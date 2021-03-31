@@ -1,7 +1,7 @@
 package pl.training.shop.payments;
 
 import org.javamoney.moneta.FastMoney;
-import pl.training.shop.commons.LocalMoney;
+import pl.training.shop.commons.money.LocalMoney;
 
 import java.time.Instant;
 

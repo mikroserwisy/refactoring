@@ -1,4 +1,4 @@
-package pl.training.shop.commons;
+package pl.training.shop.commons.time;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.Instant;
