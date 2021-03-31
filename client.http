@@ -1,0 +1,11 @@
+POST http://localhost:8080/java-testing-1.0-SNAPSHOT/api/v1/payments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "value": "1000 PLN",
+  "properties": {
+    "cardNumber": "1234566",
+    "cvv": "123"
+  }
+}

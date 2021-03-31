@@ -16,7 +16,7 @@ public class PaymentConsoleLogger {
     private static final String LOG_FORMAT = "A new payment of %s has been created";
 
     @AroundInvoke
-    public Payment log(InvocationContext invocationContext) throws Exception {
+    public Object log(InvocationContext invocationContext) throws Exception {
         var payment = (Payment) invocationContext.proceed();
         log.info(String.format(LOG_FORMAT, payment.getValue()));
         return payment;

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.payments.adapters.output.persistence.JpaPaymentRepository;
+import pl.training.shop.payments.adapters.output.persistence.PaymentEntity;
 import pl.training.shop.payments.commons.DummyPaymentsEventEmitter;
 import pl.training.shop.payments.commons.FakeTimeProvider;
 import pl.training.shop.payments.ports.input.LogPayment;
@@ -39,10 +40,11 @@ class ProcessPaymentUseCaseIntegrationTests {
         var jarArchive = ShrinkWrap.create(JavaArchive.class)
                 .addClasses(PaymentsFixtures.class)
                 .addPackage("pl.training.shop.commons")
-                .addPackage("pl.training.shop.domain")
-                .addPackage("pl.training.shop.application")
+                .addPackage("pl.training.shop.payments.domain")
+                .addPackage("pl.training.shop.payments.application")
+                .addPackage("pl.training.shop.adapters.output.persistence")
                 .addClasses(LogPayment.class, PaymentsEventEmitter.class, SavePayment.class, TimeProvider.class)
-                .addClasses(JpaPaymentRepository.class, DummyPaymentsEventEmitter.class, FakeTimeProvider.class)
+                .addClasses(DummyPaymentsEventEmitter.class, FakeTimeProvider.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/beans.xml");
         var dependencies = Maven.resolver().resolve("org.javamoney:moneta:pom:1.4.2")
@@ -61,10 +63,10 @@ class ProcessPaymentUseCaseIntegrationTests {
     @Test
     void given_valid_payment_request_when_process_then_created_payment_is_persisted() {
         var payment = processPaymentUseCase.process(validPaymentRequest);
-        var actual = entityManager.find(Payment.class, payment.getId());
+        var actual = entityManager.find(PaymentEntity.class, payment.getId());
         assertNotNull(actual);
         assertEquals(payment.getValue(), actual.getValue());
-        assertEquals(payment.getStatus(), actual.getStatus());
+        assertEquals(payment.getStatus().name(), actual.getStatus());
         assertEquals(timeProvider.getTimestamp(), actual.getTimestamp());
     }
 
