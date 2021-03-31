@@ -1,18 +1,10 @@
-1. Napisz program interpretujący proste wyrażenia w tekście
-Założenia:
-- Wyrażenia mają postać ${nazwa_zmiennej}
-- Jeśli wartość zmiennej nie została określona, ewaluacja powinna zostać przerwana
-- Podstawiane wartości mogą składać się wyłącznie ze znaków alafanumerycznych
-- Wyrażenia w tekście powinny być unikalne
+Dla pracowników:
+- Dodawane, usuwanie i edytowanie produktów sklepu
+- Powiadamiania o zakupie
+- Możliwość generowania podsumowania dotyczącego sprzedaży
 
-2. Napisz klasę reprezentującą pieniądze
-Założenia:
-- Pieniądze mogą występować w różnych walutach
-- Pieniądze mogą być wymieniane / konwertowane do innej waluty po wskazanym kursie
-- Pieniądze można ze sobą porównywać, dodawać, odejmować
+Dla użytkowników
+- Możliwość wyszukiwania / indeksowania produktów po słowach kluczowych występujących w opisie
+- Zakup produktów z obsługą płatności i generowanie raportu / faktury
 
-3. Napisz silnik gry kółko i krzyżyk.
-Założenia:
-- Plansza ma rozmiar 3 x 3 pola
-- Gracze zajmują na przemian wolne pola, stawiając na nich swój znak (kółko lub krzyżyk)
-- Gra kończy się kiedy wszystkie pola zostaną zajęte lub jeden z graczy zajmie sekwencję wygrywającą (kolumna, wiersz lub przekątna)
+W ramach zadania należy zadbać o stworzenie testów (najlepiej użycie TDD) oraz zadbać o czystość/modułowość kodu i architektury
