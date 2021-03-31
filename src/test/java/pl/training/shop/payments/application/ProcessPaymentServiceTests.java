@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static pl.training.shop.payments.PaymentsFixtures.*;
+import static pl.training.shop.payments.commons.PaymentsFixtures.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProcessPaymentServiceTests {
@@ -23,7 +23,7 @@ class ProcessPaymentServiceTests {
 
     @BeforeEach
     void beforeEach() {
-        sut = new ProcessPaymentService(() -> PAYMENT_ID, paymentRepository, () -> TIMESTAMP);
+        sut = new ProcessPaymentService(() -> PAYMENT_ID, paymentRepository, () -> TIMESTAMP, payment -> {});
     }
 
     @Test

@@ -1,4 +1,4 @@
-package pl.training.shop.payments;
+package pl.training.shop.payments.commons;
 
 import org.javamoney.moneta.FastMoney;
 import pl.training.shop.commons.money.LocalMoney;
@@ -16,12 +16,15 @@ public class PaymentsFixtures {
     public static final String PAYMENT_ID = "7e098f3d-076c-4ab8-9c74-7d1935efb501";
     public static final Instant TIMESTAMP = Instant.now();
     public static final PaymentRequest validPaymentRequest = new PaymentRequest(MONEY, emptyMap());
-    public static final Payment expectedPayment = Payment.builder()
-            .id(PAYMENT_ID)
-            .value(MONEY)
-            .properties(emptyMap())
-            .timestamp(TIMESTAMP)
-            .status(PaymentStatus.STARTED)
-            .build();
+    public static final Payment expectedPayment = createPayment(TIMESTAMP);
+    public static Payment createPayment(Instant timestamp) {
+        return Payment.builder()
+                .id(PAYMENT_ID)
+                .value(MONEY)
+                .properties(emptyMap())
+                .timestamp(timestamp)
+                .status(PaymentStatus.STARTED)
+                .build();
+    }
 
 }
