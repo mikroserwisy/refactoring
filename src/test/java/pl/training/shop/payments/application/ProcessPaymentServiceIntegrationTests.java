@@ -9,21 +9,17 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pl.training.shop.payments.adapters.output.persistence.JpaPaymentRepository;
 import pl.training.shop.payments.adapters.output.persistence.PaymentEntity;
 import pl.training.shop.payments.commons.DummyPaymentsEventEmitter;
 import pl.training.shop.payments.commons.FakeTimeProvider;
+import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.ports.input.LogPayment;
 import pl.training.shop.payments.ports.output.events.PaymentsEventEmitter;
+import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
 import pl.training.shop.payments.ports.output.providers.TimeProvider;
-import pl.training.shop.payments.commons.PaymentsFixtures;
-import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
-import pl.training.shop.payments.ports.output.persistence.SavePayment;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +29,7 @@ import static pl.training.shop.payments.commons.PaymentsFixtures.validPaymentReq
 
 @Tag(SLOW)
 @ExtendWith(ArquillianExtension.class)
-class ProcessPaymentUseCaseIntegrationTests {
+class ProcessPaymentServiceIntegrationTests {
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -43,7 +39,7 @@ class ProcessPaymentUseCaseIntegrationTests {
                 .addPackage("pl.training.shop.payments.domain")
                 .addPackage("pl.training.shop.payments.application")
                 .addPackage("pl.training.shop.adapters.output.persistence")
-                .addClasses(LogPayment.class, PaymentsEventEmitter.class, SavePayment.class, TimeProvider.class)
+                .addClasses(LogPayment.class, PaymentsEventEmitter.class, PaymentUpdates.class, TimeProvider.class)
                 .addClasses(DummyPaymentsEventEmitter.class, FakeTimeProvider.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/beans.xml");
@@ -54,15 +50,15 @@ class ProcessPaymentUseCaseIntegrationTests {
     }
 
     @Inject
-    private ProcessPaymentUseCase processPaymentUseCase;
+    private ProcessPaymentService sut;
     @Inject
     private TimeProvider timeProvider;
-    @PersistenceContext(unitName = "shop")
+    @Inject
     private EntityManager entityManager;
 
     @Test
     void given_valid_payment_request_when_process_then_created_payment_is_persisted() {
-        var payment = processPaymentUseCase.process(validPaymentRequest);
+        var payment = sut.process(validPaymentRequest);
         var actual = entityManager.find(PaymentEntity.class, payment.getId());
         assertNotNull(actual);
         assertEquals(payment.getValue(), actual.getValue());

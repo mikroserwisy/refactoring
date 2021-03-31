@@ -1,9 +1,12 @@
 package pl.training.shop.products.domain;
 
+import lombok.Value;
+
+@Value
 public class Product {
 
-    public boolean isPromoted() {
-        return false;
-    }
+    Long id;
+    String description;
+    boolean promoted;
 
 }

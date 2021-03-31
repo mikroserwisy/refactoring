@@ -3,15 +3,15 @@ package pl.training.shop.payments.adapters.output.persistence;
 import lombok.Setter;
 import pl.training.shop.payments.application.PaymentNotFoundException;
 import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.ports.output.persistence.FindPayment;
-import pl.training.shop.payments.ports.output.persistence.SavePayment;
+import pl.training.shop.payments.ports.output.persistence.PaymentQueries;
+import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
-public class JpaPaymentRepository implements SavePayment, FindPayment {
+public class JpaPaymentRepository implements PaymentUpdates, PaymentQueries {
 
     @Inject
     @Setter

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.ports.output.persistence.SavePayment;
+import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -18,7 +18,7 @@ import static pl.training.shop.payments.commons.PaymentsFixtures.*;
 class ProcessPaymentServiceTests {
 
     @Mock
-    private SavePayment paymentRepository;
+    private PaymentUpdates paymentRepository;
     private ProcessPaymentService sut;
 
     @BeforeEach

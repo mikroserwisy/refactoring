@@ -2,8 +2,10 @@ package pl.training.shop.payments.ports.output.persistence;
 
 import pl.training.shop.payments.domain.Payment;
 
-public interface SavePayment {
+import java.util.Optional;
 
-    Payment save(Payment payment);
+public interface PaymentQueries {
+
+    Optional<Payment> findById(String id);
 
 }

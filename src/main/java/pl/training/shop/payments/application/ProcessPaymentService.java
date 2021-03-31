@@ -9,7 +9,7 @@ import pl.training.shop.payments.ports.output.providers.TimeProvider;
 import pl.training.shop.payments.domain.Payment;
 import pl.training.shop.payments.domain.PaymentStatus;
 import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
-import pl.training.shop.payments.ports.output.persistence.SavePayment;
+import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -24,7 +24,7 @@ public class ProcessPaymentService implements ProcessPaymentUseCase {
     private PaymentIdGenerator paymentIdGenerator;
     @Inject
     @NonNull
-    private SavePayment paymentRepository;
+    private PaymentUpdates paymentRepository;
     @Inject
     @NonNull
     private TimeProvider timeProvider;
