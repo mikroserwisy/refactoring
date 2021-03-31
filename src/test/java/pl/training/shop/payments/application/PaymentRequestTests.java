@@ -1,4 +1,4 @@
-package pl.training.shop.payments;
+package pl.training.shop.payments.application;
 
 import org.junit.jupiter.api.Test;
 import pl.training.shop.commons.money.LocalMoney;

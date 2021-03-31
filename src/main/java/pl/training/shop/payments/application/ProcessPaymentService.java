@@ -1,9 +1,13 @@
-package pl.training.shop.payments;
+package pl.training.shop.payments.application;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import pl.training.shop.commons.time.TimeProvider;
+import pl.training.shop.payments.ports.output.time.TimeProvider;
+import pl.training.shop.payments.domain.Payment;
+import pl.training.shop.payments.domain.PaymentStatus;
+import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
+import pl.training.shop.payments.ports.output.persistence.SavePayment;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -11,14 +15,14 @@ import javax.transaction.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class PaymentService implements Payments {
+public class ProcessPaymentService implements ProcessPaymentUseCase {
 
     @Inject
     @NonNull
     private PaymentIdGenerator paymentIdGenerator;
     @Inject
     @NonNull
-    private PaymentRepository paymentRepository;
+    private SavePayment paymentRepository;
     @Inject
     @NonNull
     private TimeProvider timeProvider;
@@ -37,12 +41,6 @@ public class PaymentService implements Payments {
                 .timestamp(timeProvider.getTimestamp())
                 .status(PaymentStatus.STARTED)
                 .build();
-    }
-
-    @Override
-    public Payment findById(String id) {
-        return paymentRepository.findById(id)
-                .orElseThrow(PaymentNotFoundException::new);
     }
 
 }
