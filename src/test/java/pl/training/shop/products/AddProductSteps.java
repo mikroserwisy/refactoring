@@ -12,6 +12,7 @@ public class AddProductSteps {
 
     @When("I add it")
     public void iAddIt() {
+        throw new RuntimeException();
     }
 
     @Then("it should not be published")
