@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 @Transactional
-public class GetPaymentUseCaseService implements GetPaymentUseCase {
+public class GetPaymentService implements GetPaymentUseCase {
 
     @Inject
     @Setter
