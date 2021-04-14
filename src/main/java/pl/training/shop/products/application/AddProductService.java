@@ -8,7 +8,9 @@ import pl.training.shop.products.ports.input.AddProductUseCase;
 import pl.training.shop.products.ports.output.persistence.ProductUpdates;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
+@Transactional
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class AddProductService implements AddProductUseCase {
@@ -19,7 +21,7 @@ public class AddProductService implements AddProductUseCase {
 
     @Override
     public Product add(Product product) {
-        return productUpdates.save(new Product(product.getId(), true));
+        return productUpdates.save(new Product(true));
     }
 
 }

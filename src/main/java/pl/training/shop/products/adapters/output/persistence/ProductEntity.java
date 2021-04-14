@@ -34,5 +34,4 @@ public class ProductEntity {
         return getClass().hashCode();
     }
 
-
 }

@@ -24,7 +24,7 @@ public class ProcessPaymentService implements ProcessPaymentUseCase {
     private PaymentIdGenerator paymentIdGenerator;
     @Inject
     @NonNull
-    private PaymentUpdates paymentRepository;
+    private PaymentUpdates paymentUpdates;
     @Inject
     @NonNull
     private TimeProvider timeProvider;
@@ -35,7 +35,7 @@ public class ProcessPaymentService implements ProcessPaymentUseCase {
     @PaymentProcess
     @Override
     public Payment process(PaymentRequest paymentRequest) {
-        var payment = paymentRepository.save(createPayment(paymentRequest));
+        var payment = paymentUpdates.save(createPayment(paymentRequest));
         paymentsEventEmitter.emit(payment);
         return payment;
     }

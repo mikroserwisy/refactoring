@@ -54,9 +54,8 @@ public class AddProductServiceIntegrationTests {
 
     @Test
     void given_a_new_product_when_add_then_the_product_is_persisted() {
-        var product = sut.add(new Product(1L, false));
-        var result = entityManager.find(ProductEntity.class, product.getId());
-        assertNotNull(result);
+        var product = sut.add(new Product(false));
+        assertNotNull(entityManager.find(ProductEntity.class, product.getId()));
     }
 
 }

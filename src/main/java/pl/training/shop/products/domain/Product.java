@@ -1,11 +1,14 @@
 package pl.training.shop.products.domain;
 
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Product {
 
-    Long id;
-    boolean promoted;
+    private Long id;
+    @NonNull
+    private boolean promoted;
 
 }

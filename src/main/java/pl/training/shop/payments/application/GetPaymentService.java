@@ -13,11 +13,11 @@ public class GetPaymentService implements GetPaymentUseCase {
 
     @Inject
     @Setter
-    private PaymentQueries paymentRepository;
+    private PaymentQueries paymentQueries;
 
     @Override
     public Payment findById(String id) {
-        return paymentRepository.findById(id)
+        return paymentQueries.findById(id)
                 .orElseThrow(PaymentNotFoundException::new);
     }
 
