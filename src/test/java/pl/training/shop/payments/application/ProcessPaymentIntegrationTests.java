@@ -4,23 +4,15 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.commons.ArquillianUtils;
-import pl.training.shop.commons.money.FastMoneyConverter;
-import pl.training.shop.commons.money.LocalMoney;
 import pl.training.shop.payments.adapters.output.events.KafkaPaymentsEventEmitter;
-import pl.training.shop.payments.adapters.output.persistence.JpaPaymentRepository;
 import pl.training.shop.payments.commons.PaymentsAssertions;
 import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.commons.TimeProviderStub;
 import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.domain.PaymentStatus;
-import pl.training.shop.payments.ports.input.PaymentProcess;
-import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
-import pl.training.shop.payments.ports.output.events.PaymentsEventEmitter;
-import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
-import pl.training.shop.payments.ports.output.providers.TimeProvider;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,10 +21,12 @@ import javax.transaction.UserTransaction;
 
 import static pl.training.shop.commons.ArquillianUtils.doInTransaction;
 import static pl.training.shop.commons.ArquillianUtils.merge;
+import static pl.training.shop.commons.Tags.INTEGRATION;
 import static pl.training.shop.payments.commons.PaymentsAssertions.assertPaymentEquals;
 import static pl.training.shop.payments.commons.PaymentsFixtures.EXPECTED_PAYMENT;
 import static pl.training.shop.payments.commons.PaymentsFixtures.VALID_PAYMENT_REQUEST;
 
+@Tag(INTEGRATION)
 @ExtendWith(ArquillianExtension.class)
 public class ProcessPaymentIntegrationTests {
 
