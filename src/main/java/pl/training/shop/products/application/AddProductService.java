@@ -21,7 +21,7 @@ public class AddProductService implements AddProductUseCase {
 
     @Override
     public Product add(Product product) {
-        return productUpdates.save(new Product(true));
+        return productUpdates.save(new Product(product.getDescription(), true));
     }
 
 }

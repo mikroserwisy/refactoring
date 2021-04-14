@@ -12,6 +12,7 @@ import pl.training.shop.commons.ArquillianUtils;
 import pl.training.shop.payments.commons.PaymentsAssertions;
 import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.products.adapters.output.persistence.ProductEntity;
+import pl.training.shop.products.commons.ProductQueriesStub;
 import pl.training.shop.products.domain.Product;
 
 import javax.inject.Inject;
@@ -36,6 +37,7 @@ public class AddProductServiceIntegrationTests {
                 .addPackage("pl.training.shop.products.ports.input")
                 .addPackage("pl.training.shop.products.ports.output.persistence")
                 .addPackage("pl.training.shop.products.adapters.output.persistence")
+                .addClasses(ProductQueriesStub.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/beans.xml");
     }
@@ -54,7 +56,7 @@ public class AddProductServiceIntegrationTests {
 
     @Test
     void given_a_new_product_when_add_then_the_product_is_persisted() {
-        var product = sut.add(new Product(false));
+        var product = sut.add(new Product("",false));
         assertNotNull(entityManager.find(ProductEntity.class, product.getId()));
     }
 

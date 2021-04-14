@@ -3,9 +3,7 @@ package pl.training.shop.products.adapters.output.persistence;
 import lombok.Data;
 import pl.training.shop.products.domain.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +14,9 @@ public class ProductEntity {
     @Id
     private Long id;
     private boolean promoted;
+    @Lob
+    @Column(length = 2048)
+    private String description;
 
     @Override
     public boolean equals(Object otherProduct) {

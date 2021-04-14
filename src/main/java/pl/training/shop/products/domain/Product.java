@@ -9,6 +9,8 @@ public class Product {
 
     private Long id;
     @NonNull
+    private String description;
+    @NonNull
     private boolean promoted;
 
 }
