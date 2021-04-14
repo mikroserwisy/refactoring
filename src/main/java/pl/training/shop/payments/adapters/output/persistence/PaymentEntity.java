@@ -33,7 +33,7 @@ public class PaymentEntity {
             return false;
         }
         var payment = (Payment) otherPayment;
-        return Objects.equals(id, payment.getId());
+        return Objects.equals(id, id);
     }
 
     @Override
