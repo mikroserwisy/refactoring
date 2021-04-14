@@ -1,9 +1,6 @@
 package pl.training.shop.payments.commons;
 
 import org.javamoney.moneta.FastMoney;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import pl.training.shop.commons.ArquillianUtils;
 import pl.training.shop.commons.money.LocalMoney;
 import pl.training.shop.payments.application.PaymentRequest;
 import pl.training.shop.payments.domain.Payment;

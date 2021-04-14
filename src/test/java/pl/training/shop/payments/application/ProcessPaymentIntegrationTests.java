@@ -9,13 +9,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.commons.ArquillianUtils;
 import pl.training.shop.commons.money.FastMoneyConverter;
 import pl.training.shop.commons.money.LocalMoney;
+import pl.training.shop.payments.adapters.output.events.KafkaPaymentsEventEmitter;
 import pl.training.shop.payments.adapters.output.persistence.JpaPaymentRepository;
 import pl.training.shop.payments.commons.PaymentsAssertions;
 import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.commons.TimeProviderStub;
 import pl.training.shop.payments.domain.Payment;
 import pl.training.shop.payments.domain.PaymentStatus;
+import pl.training.shop.payments.ports.input.PaymentProcess;
 import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
+import pl.training.shop.payments.ports.output.events.PaymentsEventEmitter;
 import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
 import pl.training.shop.payments.ports.output.providers.TimeProvider;
 
@@ -37,12 +40,11 @@ public class ProcessPaymentIntegrationTests {
     public static JavaArchive createDeployment() {
         var javaArchive = ShrinkWrap.create(JavaArchive.class)
                 .addClasses(PaymentsFixtures.class, PaymentsAssertions.class, ArquillianUtils.class)
-                .addClasses(Payment.class, PaymentStatus.class, LocalMoney.class, FastMoneyConverter.class, PaymentRequest.class, InvalidPaymentRequest.class)
-                .addClasses(PaymentUpdates.class, JpaPaymentRepository.class)
-                .addClasses(PaymentIdGenerator.class, UUIDPaymentIdGenerator.class)
-                .addClasses(TimeProvider.class, TimeProviderStub.class)
-                .addClasses(ProcessPaymentUseCase.class, ProcessPaymentService.class)
-                .addAsResource("META-INF/persistence.xml");
+                .addPackage("pl.training.shop.payments.domain")
+                .addPackage("pl.training.shop.payments.application")
+                .addClasses(KafkaPaymentsEventEmitter.class, TimeProviderStub.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("META-INF/beans.xml");
         return merge(javaArchive, "org.javamoney:moneta:pom:1.4.2");
     }
 
