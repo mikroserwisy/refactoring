@@ -17,8 +17,10 @@ import pl.training.shop.products.domain.Product;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static pl.training.shop.commons.ArquillianUtils.doInTransaction;
 import static pl.training.shop.commons.Tags.INTEGRATION;
 
 @Tag(INTEGRATION)
@@ -32,6 +34,7 @@ public class AddProductServiceIntegrationTests {
                 .addPackage("pl.training.shop.products.domain")
                 .addPackage("pl.training.shop.products.application")
                 .addPackage("pl.training.shop.products.ports.input")
+                .addPackage("pl.training.shop.products.ports.output.persistence")
                 .addPackage("pl.training.shop.products.adapters.output.persistence")
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/beans.xml");
@@ -41,10 +44,12 @@ public class AddProductServiceIntegrationTests {
     private AddProductService sut;
     @PersistenceContext
     private EntityManager entityManager;
+    @Inject
+    private UserTransaction userTransaction;
 
     @BeforeEach
     void init() {
-        entityManager.createQuery("delete from ProductEntity p").executeUpdate();
+        doInTransaction(userTransaction, () -> entityManager.createQuery("delete from ProductEntity p").executeUpdate());
     }
 
     @Test
