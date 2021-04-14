@@ -7,8 +7,17 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.commons.ArquillianUtils;
+import pl.training.shop.commons.money.FastMoneyConverter;
+import pl.training.shop.commons.money.LocalMoney;
+import pl.training.shop.payments.adapters.output.persistence.JpaPaymentRepository;
 import pl.training.shop.payments.commons.PaymentsAssertions;
+import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.commons.TimeProviderStub;
+import pl.training.shop.payments.domain.Payment;
+import pl.training.shop.payments.domain.PaymentStatus;
+import pl.training.shop.payments.ports.input.ProcessPaymentUseCase;
+import pl.training.shop.payments.ports.output.persistence.PaymentUpdates;
+import pl.training.shop.payments.ports.output.providers.TimeProvider;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,10 +38,10 @@ public class ProcessPaymentIntegrationTests {
         var javaArchive = ShrinkWrap.create(JavaArchive.class)
                 .addClasses(PaymentsFixtures.class, PaymentsAssertions.class, ArquillianUtils.class)
                 .addClasses(Payment.class, PaymentStatus.class, LocalMoney.class, FastMoneyConverter.class, PaymentRequest.class, InvalidPaymentRequest.class)
-                .addClasses(PaymentRepository.class, JpaPaymentRepository.class)
+                .addClasses(PaymentUpdates.class, JpaPaymentRepository.class)
                 .addClasses(PaymentIdGenerator.class, UUIDPaymentIdGenerator.class)
                 .addClasses(TimeProvider.class, TimeProviderStub.class)
-                .addClasses(Payments.class, PaymentService.class)
+                .addClasses(ProcessPaymentUseCase.class, ProcessPaymentService.class)
                 .addAsResource("META-INF/persistence.xml");
         return merge(javaArchive, "org.javamoney:moneta:pom:1.4.2");
     }

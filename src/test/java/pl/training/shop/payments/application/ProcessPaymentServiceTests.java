@@ -29,7 +29,7 @@ class ProcessPaymentServiceTests {
     @Test
     void given_a_payment_request_when_process_then_creates_a_valid_payment() {
         when(paymentRepository.save(any(Payment.class))).then(returnsFirstArg());
-        assertEquals(expectedPayment, sut.process(validPaymentRequest));
+        assertEquals(EXPECTED_PAYMENT, sut.process(VALID_PAYMENT_REQUEST));
     }
 
 }
