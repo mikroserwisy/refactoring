@@ -6,28 +6,49 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pl.training.shop.commons.SystemTimeProvider;
+import pl.training.shop.commons.ArquillianUtils;
+import pl.training.shop.commons.FastMoneyConverter;
+import pl.training.shop.commons.LocalMoney;
 import pl.training.shop.commons.TimeProvider;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static pl.training.shop.commons.ArquillianUtils.doInTransaction;
+import static pl.training.shop.commons.ArquillianUtils.merge;
+import static pl.training.shop.payments.PaymentsAssertions.assertPaymentEquals;
+import static pl.training.shop.payments.PaymentsFixtures.EXPECTED_PAYMENT;
+import static pl.training.shop.payments.PaymentsFixtures.VALID_PAYMENT_REQUEST;
 
 @ExtendWith(ArquillianExtension.class)
 public class PaymentsServiceIntegrationTests {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClasses(TimeProvider.class, SystemTimeProvider.class);
+        var javaArchive = ShrinkWrap.create(JavaArchive.class)
+                .addClasses(PaymentsFixtures.class, PaymentsAssertions.class, ArquillianUtils.class)
+                .addClasses(Payment.class, PaymentStatus.class, LocalMoney.class, FastMoneyConverter.class, PaymentRequest.class, InvalidPaymentRequest.class)
+                .addClasses(PaymentRepository.class, JpaPaymentRepository.class)
+                .addClasses(PaymentIdGenerator.class, UUIDPaymentIdGenerator.class)
+                .addClasses(TimeProvider.class, TimeProviderStub.class)
+                .addClasses(Payments.class, PaymentService.class)
+                .addAsResource("META-INF/persistence.xml");
+        return merge(javaArchive, "org.javamoney:moneta:pom:1.4.2");
     }
 
     @Inject
-    private TimeProvider timeProvider;
+    private Payments payments;
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Inject
+    private UserTransaction userTransaction;
 
     @Test
     void given_a_payment_request_when_process_the_created_payment_is_persisted() {
-        assertNotNull(timeProvider.getTimestamp());
+        var payment = payments.process(VALID_PAYMENT_REQUEST);
+        doInTransaction(userTransaction, () -> assertPaymentEquals(EXPECTED_PAYMENT, entityManager.find(Payment.class, payment.getId())));
     }
 
 }

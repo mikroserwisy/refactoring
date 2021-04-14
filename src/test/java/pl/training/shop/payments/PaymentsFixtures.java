@@ -1,7 +1,12 @@
 package pl.training.shop.payments;
 
 import org.javamoney.moneta.FastMoney;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import pl.training.shop.commons.ArquillianUtils;
+import pl.training.shop.commons.FastMoneyConverter;
 import pl.training.shop.commons.LocalMoney;
+import pl.training.shop.commons.TimeProvider;
 
 import java.time.Instant;
 import java.util.Map;
