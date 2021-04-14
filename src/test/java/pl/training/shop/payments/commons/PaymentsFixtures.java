@@ -1,30 +1,32 @@
 package pl.training.shop.payments.commons;
 
 import org.javamoney.moneta.FastMoney;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import pl.training.shop.commons.ArquillianUtils;
 import pl.training.shop.commons.money.LocalMoney;
 import pl.training.shop.payments.application.PaymentRequest;
 import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.domain.PaymentStatus;
 
 import java.time.Instant;
+import java.util.Map;
 
 import static java.util.Collections.emptyMap;
+import static pl.training.shop.payments.domain.PaymentStatus.STARTED;
 
-public class PaymentsFixtures {
+class PaymentsFixtures {
 
-    public static final FastMoney MONEY = LocalMoney.of(1_000);
-    public static final String PAYMENT_ID = "7e098f3d-076c-4ab8-9c74-7d1935efb501";
-    public static final Instant TIMESTAMP = Instant.now();
-    public static final PaymentRequest validPaymentRequest = new PaymentRequest(MONEY, emptyMap());
-    public static final Payment expectedPayment = createPayment(TIMESTAMP);
-    public static Payment createPayment(Instant timestamp) {
-        return Payment.builder()
-                .id(PAYMENT_ID)
-                .value(MONEY)
-                .properties(emptyMap())
-                .timestamp(timestamp)
-                .status(PaymentStatus.STARTED)
-                .build();
-    }
+    static final String PAYMENT_ID = "aed6670f-21d8-44ed-9e82-4543e0839518";
+    static final Instant TIMESTAMP = Instant.now();
+    static final FastMoney MONEY = LocalMoney.of(1_000);
+    static final Map<String, String> PAYMENT_PROPERTIES = emptyMap();
+    static final Payment EXPECTED_PAYMENT = Payment.builder()
+            .id(PAYMENT_ID)
+            .value(MONEY)
+            .status(STARTED)
+            .timestamp(TIMESTAMP)
+            .properties(PAYMENT_PROPERTIES)
+            .build();
+    static final PaymentRequest VALID_PAYMENT_REQUEST = new PaymentRequest(MONEY, PAYMENT_PROPERTIES);
 
 }

@@ -13,7 +13,7 @@
             <property name="managementPort">9990</property>
             <property name="managementProtocol">http-remoting</property>
             <property name="username">admin</property>
-            <property name="password">password</property>
+            <property name="password">admin</property>
         </configuration>
     </container>
 
