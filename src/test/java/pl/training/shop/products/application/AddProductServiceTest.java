@@ -10,7 +10,7 @@ class AddProductServiceTest {
     @Test
     void given_a_new_product_when_add_then_product_is_promoted() {
         var sut = new AddProductService();
-        var product = sut.add(new Product(false));
+        var product = sut.add(new Product(1L,false));
         assertTrue(product.isPromoted());
     }
 

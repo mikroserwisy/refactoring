@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.commons.ArquillianUtils;
 import pl.training.shop.payments.adapters.output.events.KafkaPaymentsEventEmitter;
+import pl.training.shop.payments.adapters.output.persistence.PaymentEntity;
 import pl.training.shop.payments.commons.PaymentsAssertions;
 import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.commons.TimeProviderStub;
@@ -52,7 +53,7 @@ public class ProcessPaymentIntegrationTests {
     @Test
     void given_a_payment_request_when_process_the_created_payment_is_persisted() {
         var payment = sut.process(VALID_PAYMENT_REQUEST);
-        doInTransaction(userTransaction, () -> assertPaymentEquals(EXPECTED_PAYMENT, entityManager.find(Payment.class, payment.getId())));
+        doInTransaction(userTransaction, () -> assertPaymentEquals(EXPECTED_PAYMENT, entityManager.find(PaymentEntity.class, payment.getId())));
     }
 
 }
