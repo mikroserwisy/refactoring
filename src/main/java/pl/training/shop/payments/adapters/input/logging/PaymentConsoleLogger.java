@@ -2,13 +2,13 @@ package pl.training.shop.payments.adapters.input.logging;
 
 import lombok.extern.java.Log;
 import pl.training.shop.payments.domain.Payment;
-import pl.training.shop.payments.ports.input.LogPayment;
+import pl.training.shop.payments.ports.input.PaymentProcess;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-@LogPayment
+@PaymentProcess
 @Interceptor
 @Log
 public class PaymentConsoleLogger {

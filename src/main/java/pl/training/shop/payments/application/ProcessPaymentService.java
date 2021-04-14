@@ -3,7 +3,7 @@ package pl.training.shop.payments.application;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import pl.training.shop.payments.ports.input.LogPayment;
+import pl.training.shop.payments.ports.input.PaymentProcess;
 import pl.training.shop.payments.ports.output.events.PaymentsEventEmitter;
 import pl.training.shop.payments.ports.output.providers.TimeProvider;
 import pl.training.shop.payments.domain.Payment;
@@ -32,7 +32,7 @@ public class ProcessPaymentService implements ProcessPaymentUseCase {
     @NonNull
     private PaymentsEventEmitter paymentsEventEmitter;
 
-    @LogPayment
+    @PaymentProcess
     @Override
     public Payment process(PaymentRequest paymentRequest) {
         var payment = paymentRepository.save(createPayment(paymentRequest));
