@@ -16,6 +16,7 @@ import pl.training.shop.products.domain.Product;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static pl.training.shop.commons.Tags.INTEGRATION;
@@ -30,13 +31,15 @@ public class AddProductServiceIntegrationTests {
                 .addClasses(PaymentsFixtures.class, PaymentsAssertions.class, ArquillianUtils.class)
                 .addPackage("pl.training.shop.products.domain")
                 .addPackage("pl.training.shop.products.application")
+                .addPackage("pl.training.shop.products.ports.input")
+                .addPackage("pl.training.shop.products.adapters.output.persistence")
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/beans.xml");
     }
 
     @Inject
     private AddProductService sut;
-    @Inject
+    @PersistenceContext
     private EntityManager entityManager;
 
     @BeforeEach

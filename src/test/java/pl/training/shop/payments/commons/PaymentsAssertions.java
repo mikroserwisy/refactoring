@@ -11,7 +11,7 @@ public class PaymentsAssertions {
     public static void assertPaymentEquals(Payment expected, PaymentEntity actual) {
         assertNotNull(actual);
         assertEquals(expected.getValue(), actual.getValue());
-        assertEquals(expected.getStatus(), actual.getStatus());
+        assertEquals(expected.getStatus().name(), actual.getStatus());
         assertEquals(expected.getTimestamp(), actual.getTimestamp());
         assertEquals(expected.getProperties(), actual.getAdditionalProperties());
     }
