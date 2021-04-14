@@ -7,11 +7,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.training.shop.commons.ArquillianUtils;
-import pl.training.shop.commons.FastMoneyConverter;
-import pl.training.shop.commons.LocalMoney;
-import pl.training.shop.commons.TimeProvider;
 import pl.training.shop.payments.commons.PaymentsAssertions;
-import pl.training.shop.payments.commons.PaymentsFixtures;
 import pl.training.shop.payments.commons.TimeProviderStub;
 
 import javax.inject.Inject;
@@ -26,7 +22,7 @@ import static pl.training.shop.payments.commons.PaymentsFixtures.EXPECTED_PAYMEN
 import static pl.training.shop.payments.commons.PaymentsFixtures.VALID_PAYMENT_REQUEST;
 
 @ExtendWith(ArquillianExtension.class)
-public class PaymentsServiceIntegrationTests {
+public class ProcessPaymentIntegrationTests {
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -42,7 +38,7 @@ public class PaymentsServiceIntegrationTests {
     }
 
     @Inject
-    private Payments payments;
+    private ProcessPaymentService sut;
     @PersistenceContext
     private EntityManager entityManager;
     @Inject
@@ -50,7 +46,7 @@ public class PaymentsServiceIntegrationTests {
 
     @Test
     void given_a_payment_request_when_process_the_created_payment_is_persisted() {
-        var payment = payments.process(VALID_PAYMENT_REQUEST);
+        var payment = sut.process(VALID_PAYMENT_REQUEST);
         doInTransaction(userTransaction, () -> assertPaymentEquals(EXPECTED_PAYMENT, entityManager.find(Payment.class, payment.getId())));
     }
 
