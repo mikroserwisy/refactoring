@@ -1,4 +1,20 @@
+deployment/data/database
+deployment/data/message-broker
+
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
 .idea
+*.iws
 *.iml
-target
+*.ipr
+/out/
+
+### macOS ###
 .DS_Store
+.AppleDouble
+.LSOverride
+
+storage

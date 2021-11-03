@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "platform"
+      POSTGRES_USER: "platform"
+      POSTGRES_PASSWORD: "J98xHw4zYrf4Ykwa"
+      PGDATA: "/data"
+  rabbitmq:
+    image: rabbitmq:3.9.8
+    ports:
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "broker"
+      RABBITMQ_DEFAULT_PASS: "pxnVHg47DQ95Ctkwa"

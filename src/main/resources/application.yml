@@ -1,0 +1,63 @@
+server:
+  port: 8000
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: platform
+    password: J98xHw4zYrf4Ykwa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false;
+  rabbitmq:
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 20
+        retry:
+          enabled: true
+    connection-timeout: 0
+    requested-heartbeat: 5
+    username: broker
+    password: pxnVHg47DQ95Ctkwa
+  jackson:
+    default-property-inclusion: non_null
+  messages:
+    basename: exceptions,texts
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: platform@sages.pl
+    password: _
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
+  output:
+    ansi:
+      enabled: always
+platform:
+  email-sender: platform@sages.pl
+  init-project-queue: init-project
+  run-command-queue: run-command
+  send-email-queue: send-email
+  api-prefix: api/v1
+  available-languages: pl
+  default-language: pl
+  admin-email: platform@sages.pl
+---
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:postgresql://localhost:5432/platform
+platform:
+  storage-path: C:\\Users\\landr\\Desktop\\refactoring\\storage
+  maven-repository-path:  C:\\Users\\landr\\Desktop\\refactoring\\storage/.m2
+  allowed-origin: http://localhost:4200
+  docker-host-uri: http://localhost:2375
+  volume-mount-prefix: ''
+  admin-password: 123
